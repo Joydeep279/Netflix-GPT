@@ -1,9 +1,16 @@
-import React from 'react'
+import { useSelector } from "react-redux";
+import Header from "./Header";
 
 const Browse = () => {
-  return (
-    <div>Browse</div>
-  )
-}
+  const isLoggedIn = useSelector((store) => store.userInfo);
+  if (isLoggedIn===null) return <div>Please Login</div>;
 
-export default Browse
+  return (
+    <div>
+      <Header />
+      <span>Browser</span>
+    </div>
+  );
+};
+
+export default Browse;

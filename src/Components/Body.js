@@ -5,7 +5,7 @@ import Header from "./Header";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { addUser, removeUser } from "../utils/UserSlice";
+import { removeUser } from "../utils/UserSlice";
 import { useEffect } from "react";
 const Body = () => {
   const dispatch = useDispatch();
@@ -14,8 +14,6 @@ const Body = () => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
-        const { uid, email } = user;
-        dispatch(addUser({ uid: uid, email: email }));
       } else {
         dispatch(removeUser());
       }
@@ -33,7 +31,6 @@ const Body = () => {
   ]);
   return (
     <div>
-      <Header />
       <RouterProvider router={appRouter} />
     </div>
   );

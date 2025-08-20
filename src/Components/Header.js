@@ -1,4 +1,22 @@
+import { signOut } from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUser } from "../utils/UserSlice";
+import { useNavigate } from "react-router";
 const Header = () => {
+  const userDetails = useSelector((appStore) => appStore.userInfo);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch(removeUser());
+        navigate("/");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
   return (
     <div className="absolute bg-gradient-to-b from-black w-screen flex flex-row justify-between items-center px-20 py-2.5">
       <div>
@@ -7,7 +25,7 @@ const Header = () => {
           className="w-40 h-20"
         />
       </div>
-      <div className="flex gap-2.5 items-start">
+      <div className="flex gap-2.5 items-center">
         <div className="border border-white flex px-2.5 rounded py-1">
           <svg
             className="w-5 h-5"
@@ -33,9 +51,24 @@ const Header = () => {
             <option value="option2">Hindi</option>
           </select>
         </div>
-        <button className="bg-red-600 text-white px-5 py-1 rounded font-medium">
-          Sign Out
-        </button>
+        {userDetails ? (
+          <div
+            className="flex flex-row gap-2.5 justify-center items-center cursor-pointer"
+            onClick={handleSignOut}>
+            <img
+              src={userDetails.photoURL}
+              alt="user-icon"
+              className="w-5 h-5"
+            />
+            <button className="font-medium text-white">{userDetails.name}</button>
+          </div>
+        ) : (
+          <button
+            className="bg-red-600 text-white px-5 py-1 rounded font-medium cursor-pointer"
+            onClick={handleSignOut}>
+            Log IN
+          </button>
+        )}
       </div>
     </div>
   );

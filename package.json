@@ -1,0 +1,39 @@
+{
+  "name": "netflix-gpt",
+  "version": "1.0.0",
+  "description": "netflix clone with gpt",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joydeep279/NetFlix.git"
+  },
+  "keywords": [
+    "react",
+    "parcel",
+    "netfilx"
+  ],
+  "author": "Joydeep279",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joydeep279/NetFlix/issues"
+  },
+  "homepage": "https://github.com/Joydeep279/NetFlix#readme",
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
+    "@tailwindcss/postcss": "^4.1.12",
+    "firebase": "^12.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-redux": "^9.2.0",
+    "react-router": "^7.8.1",
+    "react-router-dom": "^7.8.1",
+    "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "parcel": "^2.15.4"
+  }
+}

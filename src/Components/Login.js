@@ -10,6 +10,7 @@ import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/UserSlice";
 import React from "react";
+import { UserAvatar } from "../utils/constants";
 const Login = () => {
   const dispatch = useDispatch();
   const email = useRef(null);
@@ -61,8 +62,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(auth.currentUser, {
             displayName: uName.current.value,
-            photoURL:
-              "https://wallpapers.com/images/high/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.webp",
+            photoURL: UserAvatar,
           })
             .then(() => {
               // Profile updated!
@@ -93,7 +93,7 @@ const Login = () => {
     <React.Fragment>
       <Header />
       <div className="bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/258d0f77-2241-4282-b613-8354a7675d1a/web/IN-en-20250721-TRIFECTA-perspective_cadc8408-df6e-4313-a05d-daa9dcac139f_large.jpg')] bg-cover bg-center h-screen w-screen">
-        <div className="absolute mx-auto left-0 right-0 my-36 bg-black w-1/4 h-3/5 flex flex-col items-center bg-opacity-70 text-white">
+        <div className="absolute mx-auto left-0 right-0 my-36 bg-black/70 w-[22%] h-[65%] flex flex-col items-center text-white">
           <form
             className="mx-auto w-2/3 flex flex-col gap-5 justify-center"
             onSubmit={(e) => {

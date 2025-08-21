@@ -1,29 +1,46 @@
-import { signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { removeUser } from "../utils/UserSlice";
+import { addUser, removeUser } from "../utils/UserSlice";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { removeUser } from "../utils/UserSlice";
 import { useEffect } from "react";
+import { LogoURL } from "../utils/constants";
+
 const Header = () => {
   const userDetails = useSelector((appStore) => appStore.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const bypassLogin = () => {
+    signInWithEmailAndPassword(auth, "joydeepnath279@gmail.com", "Joydeep@279")
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            name: displayName,
+            photoURL: photoURL,
+          })
+        );
+      })
+      .catch((error) => {});
+  };
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
         dispatch(removeUser());
-        navigate("/");
       })
       .catch((error) => {
         navigate("/error");
       });
   };
   useEffect(() => {
-    const unsuscribe = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
@@ -32,15 +49,11 @@ const Header = () => {
         navigate("/");
       }
     });
-    return () => unsuscribe();
   }, []);
   return (
     <div className="absolute bg-gradient-to-b from-black w-screen flex flex-row justify-between items-center px-20 py-2.5">
       <div>
-        <img
-          src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production_2025-07-24/consent/87b6a5c0-0104-4e96-a291-092c11350111/019808e2-d1e7-7c0f-ad43-c485b7d9a221/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-          className="w-40 h-20"
-        />
+        <img src={LogoURL} className="h-20" />
       </div>
       <div className="flex gap-2.5 items-center">
         <div className="border border-white flex px-2.5 rounded py-1">
@@ -75,13 +88,17 @@ const Header = () => {
               alt="user-icon"
               className="w-5 h-5"
             />
-            <button className="font-medium text-white" onClick={handleSignOut}>
+            <button
+              className="font-medium text-white cursor-pointer"
+              onClick={handleSignOut}>
               Sign Out
             </button>
           </div>
         ) : (
-          <button className="bg-red-600 text-white px-5 py-1 rounded font-medium cursor-pointer">
-            Log In
+          <button
+            className="bg-red-600 text-white px-5 py-1 rounded font-medium cursor-pointer"
+            onClick={bypassLogin}>
+            ByPass
           </button>
         )}
       </div>

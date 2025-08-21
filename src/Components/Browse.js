@@ -1,10 +1,11 @@
 import Header from "./Header";
+import MainContainer from "./MainContainer";
 
 const Browse = () => {
   return (
     <div>
       <Header />
-      <span>Browser</span>
+      <MainContainer/>
     </div>
   );
 };

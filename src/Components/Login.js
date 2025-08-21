@@ -7,13 +7,11 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/UserSlice";
 import React from "react";
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const email = useRef(null);
   const uName = useRef(null);
   const password = useRef(null);
@@ -47,7 +45,6 @@ const Login = () => {
               photoURL: photoURL,
             })
           );
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -79,7 +76,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               // An error occurred

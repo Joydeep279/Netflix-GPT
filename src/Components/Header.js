@@ -3,6 +3,11 @@ import { auth } from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../utils/UserSlice";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { removeUser } from "../utils/UserSlice";
+import { useEffect } from "react";
 const Header = () => {
   const userDetails = useSelector((appStore) => appStore.userInfo);
   const dispatch = useDispatch();
@@ -14,9 +19,21 @@ const Header = () => {
         navigate("/");
       })
       .catch((error) => {
-        // An error happened.
+        navigate("/error");
       });
   };
+  useEffect(() => {
+    const unsuscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        navigate("/browse");
+      } else {
+        navigate("/");
+      }
+    });
+    return () => unsuscribe();
+  }, []);
   return (
     <div className="absolute bg-gradient-to-b from-black w-screen flex flex-row justify-between items-center px-20 py-2.5">
       <div>
@@ -52,21 +69,19 @@ const Header = () => {
           </select>
         </div>
         {userDetails ? (
-          <div
-            className="flex flex-row gap-2.5 justify-center items-center cursor-pointer"
-            onClick={handleSignOut}>
+          <div className="flex flex-row gap-2.5 justify-center items-center cursor-pointer">
             <img
               src={userDetails.photoURL}
               alt="user-icon"
               className="w-5 h-5"
             />
-            <button className="font-medium text-white">{userDetails.name}</button>
+            <button className="font-medium text-white" onClick={handleSignOut}>
+              Sign Out
+            </button>
           </div>
         ) : (
-          <button
-            className="bg-red-600 text-white px-5 py-1 rounded font-medium cursor-pointer"
-            onClick={handleSignOut}>
-            Log IN
+          <button className="bg-red-600 text-white px-5 py-1 rounded font-medium cursor-pointer">
+            Log In
           </button>
         )}
       </div>

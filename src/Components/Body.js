@@ -12,6 +12,10 @@ const Body = () => {
       path: "/browse",
       element: <Browse />,
     },
+    {
+      path: "/error",
+      element: <Error />,
+    },
   ]);
   return (
     <div>

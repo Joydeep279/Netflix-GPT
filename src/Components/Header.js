@@ -36,7 +36,7 @@ const Header = () => {
         dispatch(removeUser());
       })
       .catch((error) => {
-        navigate("/error");
+        // navigate("/error");
       });
   };
   useEffect(() => {

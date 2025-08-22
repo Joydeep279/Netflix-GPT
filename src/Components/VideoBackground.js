@@ -20,13 +20,16 @@ const VideoBackground = ({ videoId }) => {
   useEffect(() => {
     getVideoDetails();
   }, []);
+  if (videoKey === null) {
+    return;
+  }
   return (
     <div>
       <iframe
-        src={`https://www.youtube.com/embed/${videoKey}?autoplay=1&mute=1&controls=0&showinfo=0&loop=1&playlist=${videoKey}&modestbranding=1&rel=0`}
+        src={`https://www.youtube.com/embed/${videoKey}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoKey}&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&playsinline=0`}
         allow="autoplay; fullscreen"
-        allowFullScreen
-        className="w-screen h-screen"></iframe>
+        className="w-screen  aspect-video"
+      />
     </div>
   );
 };

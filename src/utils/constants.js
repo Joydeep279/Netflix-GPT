@@ -10,3 +10,4 @@ export const Api_Options = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MzUzNWE3YWY3MTJlM2YwZjE5OTI2ZjI0ZjA5ODVjNiIsIm5iZiI6MTcyNDU3OTMxNC41MjE5OTk4LCJzdWIiOiI2NmNhZmRmMjlhYzNhNmEwOTFkODNmZWMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.Sqqo0riZ7Eb8N7dOUGRI54Mc7nFKmpcOQ6xtRjyV4_w",
   },
 };
+export const TMBD_img_url="https://image.tmdb.org/t/p/w780/"

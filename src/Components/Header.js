@@ -51,7 +51,7 @@ const Header = () => {
     });
   }, []);
   return (
-    <div className="absolute bg-gradient-to-b from-black w-screen flex flex-row justify-between items-center px-20 py-2.5">
+    <div className="absolute top-0 bg-gradient-to-b from-black w-[99vw] flex flex-row justify-between items-center px-20 py-2.5">
       <div>
         <img src={LogoURL} className="h-20" />
       </div>

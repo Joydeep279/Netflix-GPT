@@ -1,6 +1,7 @@
 import useMovieList from "../Hooks/useMovieList";
 import { useSelector } from "react-redux";
 import VideoContainer from "./VideoContainer";
+import VideoBackground from "./VideoBackground";
 
 function getRandomNumber() {
   return Math.floor(Math.random() * 20);
@@ -16,6 +17,7 @@ const MainContainer = () => {
   return (
     <div>
       <VideoContainer videoDetail={displayMovie} />
+      <VideoBackground videoId={displayMovie.id}/>
     </div>
   );
 };

@@ -9,8 +9,9 @@ import { auth } from "../utils/firebase";
 import { removeUser } from "../utils/UserSlice";
 import { useEffect } from "react";
 import { LogoURL } from "../utils/constants";
-
+import { toggleGptSearch } from "../utils/GptSlice";
 const Header = () => {
+  const gptData = useSelector((appStore) => appStore.gptConfig);
   const userDetails = useSelector((appStore) => appStore.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,6 +40,9 @@ const Header = () => {
         // navigate("/error");
       });
   };
+  const toggleGptPage = () => {
+    dispatch(toggleGptSearch());
+  };
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -56,6 +60,11 @@ const Header = () => {
         <img src={LogoURL} className="h-20" />
       </div>
       <div className="flex gap-2.5 items-center">
+        <button
+          className="bg-red-600 text-white px-5 py-1 rounded font-medium cursor-pointer"
+          onClick={toggleGptPage}>
+          {gptData.GptStatus ? "Home" : "GPT Search"}
+        </button>
         <div className="border border-white flex px-2.5 rounded py-1">
           <svg
             className="w-5 h-5"

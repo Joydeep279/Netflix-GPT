@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 const VideoCard = () => {
   const list = useSelector((appStore) => appStore.moviesList);
-  console.log(list);
+
   return (
     <div className="flex flex-col">
       <CardList title={"Now Playing"} movies={list.moviesList} />
